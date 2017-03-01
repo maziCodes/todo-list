@@ -1,0 +1,51 @@
+<div class="container-fluid">
+	<h1 class="text-success">
+	{{greetings}} <button class="btn btn-success" (click)="newTask = true" *ngIf="!newTask" >Create new Task</button>
+	<!-- <button class="btn btn-success" (click)="newTask = false" *ngIf="newTask" >Create new Task</button> -->
+	</h1>
+<hr />
+
+<div class="container" [hidden]="!newTask">
+	<h3 class="text-danger">
+	Your new task: {{title}}
+	</h3>
+	<form>
+		<fieldset class="form-group" style="width: 30em;">
+			<label for="formGroupExampleInput">Task title</label>
+			<input type="text" width="20em" name="title" class="form-control" id="" placeholder="Enter your task" [(ngModel)]="title">
+		</fieldset>
+		<fieldset class="form-group">
+			<label for="formGroupExampleInput2">Enter Description</label><br>
+			<textarea name="description" rows="5" cols="57" style="resize: none" placeholder="Enter task decription" [(ngModel)]="description"></textarea>
+		</fieldset>
+		<button type="button" class="btn btn-primary"(click)="createTask(title,description)"  (click)="table = true" *ngIf="!table">Create Task</button>
+		<button type="button" class="btn btn-primary"(click)="createTask(title,description)" (click)="table = true" *ngIf="table">Create Task</button>
+	</form>
+
+	 <hr />
+	<table class="table table-hover table-striped" [hidden]="!table">
+	  <thead>
+	    <tr>
+	    	<th>Id</th>
+			<th>Task title</th>
+			<th>Description</th>
+			<th>Action</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr *ngFor="let task of tasks; let x = index">
+	    	<td>{{x + 1}}</td>
+			<td>{{task.title}}</td>
+			<td>{{task.description}}</td>
+			<td><button type="button" class="btn btn-danger" (click)="deleteTask(task)">delete</button></td>
+	    </tr>
+	  </tbody>
+	  
+	</table>
+
+
+	<!-- <app-todo-list></app-todo-list> -->
+	<!-- <app-users></app-users> -->
+	</div>
+
+</div>
