@@ -3,49 +3,90 @@
 	{{greetings}} <button class="btn btn-success" (click)="newTask = true" *ngIf="!newTask" >Create new Task</button>
 	<!-- <button class="btn btn-success" (click)="newTask = false" *ngIf="newTask" >Create new Task</button> -->
 	</h1>
-<hr />
+	<hr />
+	<div class="container" [hidden]="!newTask">
+		<h3 class="text-danger">
+		Your new task: {{title}}
+		</h3>
+		<form>
+			<fieldset class="form-group" style="width: 30em;">
+				<label for="formGroupExampleInput">Task title</label>
+				<input type="text" width="20em" name="title" class="input-lg form-control" id="" placeholder="Enter your task" [(ngModel)]="title">
+			</fieldset>
+			<fieldset class="form-group">
+				<label for="formGroupExampleInput2">Enter Description</label><br>
+				<textarea name="description" rows="5" cols="57" style="resize: none" placeholder="Enter task decription" [(ngModel)]="description"></textarea>
+			</fieldset>
+			<button type="button" class="btn btn-primary"(click)="createTask(title,description)"  (click)="table = true" *ngIf="!table">Create Task</button>
+			<button type="button" class="btn btn-primary"(click)="createTask(title,description)" (click)="table = true" *ngIf="table">Create Task</button>
+		</form>
+		<hr />
+		<table class="table table-hover table-striped" [hidden]="!table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Task title</th>
+					<th>Description</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let task of tasks; let x = index">
+					<td>{{x + 1}}</td>
+					<td>{{task.title}}</td>
+					<td>{{task.description}}</td>
+					<td><button class="btn btn-info" type="button" (click)="editTask(task)" data-toggle="modal" data-target="#edit">Edit</button></td>
+					<td><button type="button" class="btn btn-danger" (click)="deleteTask(task)">Delete</button></td>
+				</tr>
+			</tbody>
+			
+		</table>
+		<!-- <form *ngIf="editting">
+			<fieldset>
+				<label><h4>Edit Task</h4></label>
+			</fieldset>
+			<fieldset class="form-group" style="width: 30em;">
+				<label for="formGroupExampleInput">Task title</label>
+				<input type="text" width="20em" name="title" class="input-lg form-control" id="" placeholder="Enter your task" [(ngModel)]="tasks[indexOfTask].title">
+			</fieldset>
+			<fieldset class="form-group">
+				<label for="formGroupExampleInput2">Enter Description</label><br>
+				<textarea name="description" rows="5" cols="57" style="resize: none" placeholder="Enter task decription" [(ngModel)]="tasks[indexOfTask].description"></textarea>
+			</fieldset>
+			<button type="button" class="btn btn-info" (click)="editting = false" (click)="consoleThis()">Edit Task</button>
+		</form> -->
+		
+		<!-- EDIT MODAL -->
+		<div class="modal fade" id="edit" role="dialog" *ngIf="editting">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myLoginLabel">Edit Task</h4>
+					</div>
+					<div class="modal-body">
+						<form>
+							<fieldset class="form-group">
+								<label>Task Title</label>
+								<input type="text" name="title" class="input-lg form-control" placeholder="Enter your task" [(ngModel)]="tasks[indexOfTask].title">
+							</fieldset>
+							<fieldset class="form-group">
+								<label for="formGroupExampleInput2">Enter Description</label><br>
+								<textarea name="description" rows="5" cols="57" style="resize: none" placeholder="Enter task decription" [(ngModel)]="tasks[indexOfTask].description"></textarea>
+							</fieldset>
+						</form>
+						
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info" (click)="editting = false" (click)="consoleThis()" data-dismiss="modal">Edit Task</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-<div class="container" [hidden]="!newTask">
-	<h3 class="text-danger">
-	Your new task: {{title}}
-	</h3>
-	<form>
-		<fieldset class="form-group" style="width: 30em;">
-			<label for="formGroupExampleInput">Task title</label>
-			<input type="text" width="20em" name="title" class="form-control" id="" placeholder="Enter your task" [(ngModel)]="title">
-		</fieldset>
-		<fieldset class="form-group">
-			<label for="formGroupExampleInput2">Enter Description</label><br>
-			<textarea name="description" rows="5" cols="57" style="resize: none" placeholder="Enter task decription" [(ngModel)]="description"></textarea>
-		</fieldset>
-		<button type="button" class="btn btn-primary"(click)="createTask(title,description)"  (click)="table = true" *ngIf="!table">Create Task</button>
-		<button type="button" class="btn btn-primary"(click)="createTask(title,description)" (click)="table = true" *ngIf="table">Create Task</button>
-	</form>
 
-	 <hr />
-	<table class="table table-hover table-striped" [hidden]="!table">
-	  <thead>
-	    <tr>
-	    	<th>Id</th>
-			<th>Task title</th>
-			<th>Description</th>
-			<th>Action</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr *ngFor="let task of tasks; let x = index">
-	    	<td>{{x + 1}}</td>
-			<td>{{task.title}}</td>
-			<td>{{task.description}}</td>
-			<td><button type="button" class="btn btn-danger" (click)="deleteTask(task)">delete</button></td>
-	    </tr>
-	  </tbody>
-	  
-	</table>
-
-
-	<!-- <app-todo-list></app-todo-list> -->
-	<!-- <app-users></app-users> -->
+		<!-- <app-todo-list></app-todo-list> -->
+		<!-- <app-users></app-users> -->
 	</div>
-
 </div>
