@@ -32,17 +32,7 @@ export class AppComponent {
 
   // Initiating class constructor
   constructor() {  
-	  this.tasks = [];
-    console.log(this.tasks);
-    sessionStorage.setItem("storedTasks",JSON.stringify(this.tasks));
-    let storedTask = sessionStorage.getItem("storedTasks");
-    console.log(storedTask + " this is session storage");
-    storedTask = JSON.parse(storedTask);
-    console.log(JSON.parse(storedTask) + " parsed to Json");
-    // console.log(localStorage.length);
-
-    this.tasks.push(storedTask);  
-    console.log(storedTask + " newly stored");
+	  this.tasks = []
   }
 
   // Function to create new task
@@ -60,8 +50,17 @@ export class AppComponent {
           "description": description   
         }  
         // Storing new instance task object in local storage per session
+   
+        this.tasks.push(this.task);  
+        console.log(this.tasks);
 
-        
+        // localStorage.setItem("storedTasks",JSON.stringify(this.tasks));
+        // let storedTask = localStorage.getItem("storedTasks");
+        // console.log(localStorage.getItem("storedTasks"));
+        // console.log(storedTask);
+        // this.tasks = JSON.parse(storedTask);
+        // console.log(JSON.parse(storedTask) + " parsed to Json");
+        // console.log(localStorage.length);
       }
     }
 
